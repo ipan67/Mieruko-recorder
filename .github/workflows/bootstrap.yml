@@ -1,30 +1,4 @@
 
-name: Create Flutter Project
-
-on:
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  create:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - name: Generate Android Project
-        run: |
-          flutter create \
-            --project-name mieruko_recorder \
-            --org com.ipanstudio \
-            --platforms=android .
 
       - name: Save Project
         run: |
@@ -32,4 +6,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Generate Flutter Android project" || true
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
